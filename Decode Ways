@@ -1,0 +1,22 @@
+public class Solution {
+
+  /*
+    Space:O(n) runtime: O(n)
+  */
+    public int numDecodings(String s) {
+        
+        int l = s.length();
+        if(l == 0)
+            return 0;
+        int[] dp = new int[l+1];
+        dp[0] = 1;
+        dp[1] = Integer.parseInt(s.substring(0,1)) == 0 ? 0:1;
+        
+        for(int i = 2; i < l+1 ; i++){
+             int x = Integer.parseInt(s.substring(i-1,i))  ;
+             int y	=	 Integer.parseInt(s.substring(i-2,i)) ;
+             dp[i] = (x == 0 ? 0 :dp[i-1]) +(y<10 || y> 26 ? 0 : dp[i-2]);
+        }
+        return dp[l];
+    }
+}
