@@ -26,12 +26,14 @@ public class Solution {
         for (int i = 0; i < length / 2; i++){
             second = second.next;
         }
+        // break the link
         for (int i = 0; i < length / 2 - 1; i++) {
             pre = pre.next;
         }
         pre.next = null;
+        
         first = sort(first, length / 2);
-        second = sort(second, length / 2 + (length % 2 == 0 ? 0 : 1));
+        second = sort(second, length / 2 + (length % 2 == 0 ? 0 : 1)); // check if length % 2 == 1
         
         return merge(first, second);
     }
