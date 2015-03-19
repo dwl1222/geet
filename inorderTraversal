@@ -8,6 +8,8 @@
  * }
  */
 public class Solution {
+
+    // recursive solution: Time O(n) Space O(h);
     public List<Integer> inorderTraversal(TreeNode root) {
         List<Integer> res = new ArrayList<>();
         inorderTraversal(root, res);
@@ -25,5 +27,22 @@ public class Solution {
         inorderTraversal(root.right);
         
         return;
+    }
+    // recursive solution: Time O(n) Space O(h);    
+    public List<Integer> inorderTraversal(TreeNode root) {
+        List<Integer> res = new ArrayList<>();
+        Stack<TreeNode> parentStack = new Stack<>();
+        while (root != null || !parentStack.isempty()){
+            if (root != null){
+                parentStack.push(root);
+                root = root.left;
+            } else{
+                root = parentStack.pop();
+                res.add(root.val);
+                root = root.right;
+            }
+        }
+        
+        return res;
     }
 }
