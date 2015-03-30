@@ -1,0 +1,20 @@
+public class Solution {
+    public boolean wordBreak(String s, Set<String> dict) {
+        if (s == null || dict == null || dict.size() == 0) {
+            return false;
+        }
+        
+        int strLength = s.length();
+        boolean[] dp = new boolean[strLength + 1];
+        dp[0] = true;
+        String suffix = new String();
+        for (int i = 1; i < strLength + 1; i++) {
+            for (int j = 0; j < i; j++) {
+                suffix = s.substring(j, i);
+                dp[i] = dp[i] || (dp[j] && dict.contains(suffix));
+            }
+        }
+        
+        return dp[strLength];
+    }
+}
