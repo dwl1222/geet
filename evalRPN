@@ -1,5 +1,37 @@
 public class Solution {
     public int evalRPN(String[] tokens) {
+        if (tokens == null || tokens.length == 0) {
+            return 0;
+        }
         
+        Stack<Integer> myStack = new Stack<>();
+        int first, second;
+        for (String s: tokens) {
+            if (s.equals("+")) {
+                second = myStack.pop();
+                first = myStack.pop();
+                myStack.push(first + second);
+            }
+            else if (s.equals("-")) {
+                second = myStack.pop();
+                first = myStack.pop();
+                myStack.push(first - second);
+            }            
+            else if (s.equals("*")) {
+                second = myStack.pop();
+                first = myStack.pop();
+                myStack.push(first * second);
+            }            
+            else if (s.equals("/")) {
+                second = myStack.pop();
+                first = myStack.pop();
+                myStack.push(first / second);
+            } 
+            else {
+                myStack.push(Integer.parseInt(s));
+            }
+        }
+                    
+        return myStack.pop();
     }
 }
