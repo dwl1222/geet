@@ -1,0 +1,26 @@
+public class Solution {
+
+    // The stack is holding the index of the rectangle which are to the left of the current index i.
+    // it is in height asending order.
+    // so if the stack is empty. That means all the rect to the left of i is higher than height[i];
+    // so the width can be calculated by i when stack is empty.
+    public int largestRectangleArea(int[] height) {
+        if (height == null || height.length == 0) {
+            return 0;
+        }
+        height = Arrays.copyOf(height, height.length + 1);
+        height[height.length - 1] = 0;
+        Stack<Integer> indices = new Stack<>();
+        int max = 0;
+        for (int i = 0; i < height.length; i++) {
+            while (!indices.isEmpty() && height[indices.peek()] < A[i]) {
+                int curIndex = indices.pop();
+                int width = indices.isEmpty() ? i : (i - indices.peek() - 1);
+                max = Math.max(width * height[curIndex], max);
+            }
+            indices.push(i);
+        }
+        
+        return max;
+    }
+}
