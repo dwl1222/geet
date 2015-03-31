@@ -1,0 +1,39 @@
+public class Solution {
+
+
+    // Calculate the left area: in the case of there are multiple maxs
+    // the left area will cover the area between the maxs. Since the maxIndex is at right most
+    // Calculate the right area
+    // Note there is always one max not taken into account, which is the maxIndex one.
+    // res = left area + right area + max - sum
+    public int trap(int[] A) {
+        if (A == null || A.length < 3) {
+            return 0;
+        }
+        
+        int max = -1, maxIndex = -1, sum = 0;
+        for (int i = 0; i < A.length; i++ ) {
+            if (A[i] >= max) {
+                max = A[i];
+                maxIndex = i;
+            }
+            sum += A[i];
+        }
+        int curIndexL, curIndexR, prevIndex = 0, leftArea = 0, rightArea = 0;
+        for (curIndexL = 0; curIndexL <= maxIndex; curIndexL++) {
+            if (A[curIndexL] >= A[prevIndex]) {
+                leftArea += (curIndexL - prevIndex) * A[prevIndex];
+                prevIndex = curIndexL;
+            }
+        }
+        prevIndex = A.length - 1;
+        for (curIndexR = A.length - 1; curIndexR >= maxIndex; curIndexR--) {
+            if (A[curIndexR] >= A[prevIndex]) {
+                rightArea += (prevIndex - curIndexR) * A[prevIndex];
+                prevIndex = curIndexR;
+            }
+        }
+        
+        return leftArea + rightArea + max - sum;
+    }
+}
