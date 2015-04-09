@@ -1,0 +1,24 @@
+public class Solution {
+    public int longestValidParentheses(String s) {
+        Stack<Integer> leftParenthIndex = new Stack<>();
+        int max = 0, start = -1;
+        for (int i = 0; i < s.length(); i++) {
+        	if (s.charAt(i) == '(') {
+        		leftParenthIndex.push(i);
+        	} else {
+        		if (leftParenthIndex.isEmpty()) {
+        			start = i;
+        		} else {
+        			leftParenthIndex.pop();
+        			if (leftParenthIndex.isEmpty()) {
+        			    max = Math.max(max, i - start);
+        			} else {
+        			    max = Math.max(max, i - leftParenthIndex.peek());
+        			}
+        		}
+        	}
+        }
+        
+        return max;
+    }
+}
