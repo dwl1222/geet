@@ -1,0 +1,37 @@
+public class Solution {
+    public List<Integer> findSubstring(String S, String[] L) {
+        List<Integer> res = new ArrayList<>();
+        if (S == null || L == null || L.length == 0) {
+        	return res;
+        }
+        HashMap<String, Integer> dict = new HashMap<>();
+        for (String s : L) {
+        	if (dict.containsKey(s)) {
+        		dict.put(s, dict.get(s) + 1);
+        	} else {
+        		dict.put(s, 1);
+        	}
+        }
+        int numOfStr = L.length;
+        int strLength = L[0].length();
+        for (int i = 0; i <= S.length() - numOfStr*strLength; i++) {
+        	HashMap<String, Integer> curDict = new HashMap<>(dict);
+        	String cur = S.substring(i, i + numOfStr*strLength);
+        	for (int j = 0; j <= cur.length() - strLength; j+= strLength) {
+        		String sub = cur.substring(j, j + strLength);
+        		if (curDict.get(sub) == null) {
+        			break;
+        		} else if (curDict.get(sub) == 1) {
+        			curDict.remove(sub);
+        		} else {
+        			curDict.put(sub, curDict.get(sub) - 1);
+        		}
+        	}
+        	if (curDict.isEmpty()) {
+        		res.add(i);
+        	}
+        }
+        
+        return res;
+    }
+}
