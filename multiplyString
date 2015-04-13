@@ -1,0 +1,71 @@
+public class Solution {
+    public String multiply(String num1, String num2) {
+        if (num1.equals("0") || num2.equals("0")) {
+            return "0";
+        }
+        
+    	String res = "";
+        for (int i = num1.length() - 1; i>=0; i--) {
+        	res = add(res, multiply(num2, num1.charAt(i)) + genZeros(num1.length() - 1 - i));
+        }
+        
+        return res;
+    }
+    
+    public String multiply(String num, char c) {
+    	if (num == null || num.length() == 0) {
+    		return "";
+    	}
+    	
+    	StringBuilder res = new StringBuilder();
+    	int add = 0;
+    	for (int i = num.length() - 1; i >= 0; i--) {
+    		int prod = add + Character.getNumericValue(c) * Character.getNumericValue(num.charAt(i));
+    		res.append(prod % 10);
+    		add = prod / 10;
+    	}
+    	if (add != 0){
+    		res.append(add);
+    	}
+    	res.reverse();
+    	
+    	return res.toString();
+    }
+    
+    public String add(String s1, String s2) {
+    	if (s1 == null || s1.length() == 0) {
+    		return s2;
+    	}
+    	if (s2 == null || s2.length() == 0) {
+    		return s1;
+    	}
+    	
+    	StringBuilder res = new StringBuilder();
+    	int sum = 0;
+    	for (int i = s1.length() - 1, j = s2.length() - 1; i >=0 || j >= 0; i--, j--) {
+    		if (i >= 0) {
+    			sum += Character.getNumericValue(s1.charAt(i));
+    		}
+    		if (j >= 0) {
+    			sum += Character.getNumericValue(s2.charAt(j));
+    		}
+    		res.append(sum % 10);
+    		sum /= 10;
+    	}
+    	if (sum != 0) {
+    		res.append(sum);
+    	}
+    	res.reverse();
+    	
+    	return res.toString();
+    }
+    
+    public String genZeros(int n) {
+    	StringBuilder res = new StringBuilder();
+    	for (int i = 0; i < n; i++) {
+    		res.append(0);
+    	}
+    	
+    	return res.toString();
+    }
+}
