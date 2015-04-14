@@ -1,0 +1,45 @@
+public class Solution {
+    public List<String[]> solveNQueens(int n) {
+        List<String[]> res = new ArrayList<>();
+        String[] matrix = new String[n];
+        helper(0, n, matrix, res);
+        return res;
+    }
+    
+    public void helper(int row, int n, String[] matrix, List<String[]> res) {
+    	if (row == n) {
+    		res.add(Arrays.copyOf(matrix, matrix.length));
+    		return;
+    	}
+    	
+    	for (int col = 0; col < n; col++) {
+    		if (isValid(matrix, row, col)) {
+    			char[] cur = new char[n];
+    			Arrays.fill(cur, '.');
+    			cur[col] = 'Q';
+    			matrix[row] = new String(cur);
+    			helper(row + 1, n, matrix, res);
+    			cur[col] = '.';
+    			matrix[row] = new String(cur);
+    		}
+    	}
+    	
+    	return;
+    }
+    
+    public boolean isValid(String[] matrix, int row, int col) {
+    	for (int i = row - 1, j = 1; i >= 0; i--, j++) {
+    		if (matrix[i].charAt(col) == 'Q') {
+    			return false;
+    		}
+    		if (col - j >= 0 && matrix[i].charAt(col - j) == 'Q') {
+				return false;
+			}
+			if (col + j < matrix[i].length() && matrix[i].charAt(col + j) == 'Q') {
+				return false;
+			}
+    	}
+    	
+    	return true;
+    }
+}
