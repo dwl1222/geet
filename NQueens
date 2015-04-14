@@ -19,8 +19,6 @@ public class Solution {
     			cur[col] = 'Q';
     			matrix[row] = new String(cur);
     			helper(row + 1, n, matrix, res);
-    			cur[col] = '.';
-    			matrix[row] = new String(cur);
     		}
     	}
     	
