@@ -1,0 +1,31 @@
+public class Solution {
+    public List<List<Integer>> combine(int n, int k) {
+        List<List<Integer>> res = new ArrayList<>();
+        if (k == 1) {
+        	for (int i = 1; i <= n; i++) {
+        	    List<Integer> temp = new ArrayList<>();
+        		temp.add(i);
+        		res.add(temp);
+        	}
+        	return res;
+        }
+        if (k == n) {
+        	List<Integer> temp = new ArrayList<>();
+        	for (int i = 1; i <= n; i++) {
+        		temp.add(i);	
+        	}
+        	res.add(temp);
+        	return res;
+        }
+        res.addAll(combine(n - 1, k));
+        List<List<Integer>> last = combine(n - 1, k - 1);
+        for (List<Integer> i : last) {
+        	i.add(n);
+        }
+        res.addAll(last);
+        
+        return res;
+    }
+    
+
+}
