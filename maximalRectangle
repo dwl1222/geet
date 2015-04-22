@@ -1,0 +1,39 @@
+public class Solution {
+    public int maximalRectangle(char[][] matrix) {
+        if (matrix == null || matrix.length == 0 || matrix[0].length == 0) {
+        	return 0;
+        }
+        int m = matrix.length;
+        int n = matrix[0].length;
+        int max = 0;
+        int[] A = new int[n];
+       	for (int i = 0; i < m; i++) {
+       		for (int j = 0; j < n; j++) {
+       			if(Character.getNumericValue(matrix[i][j]) == 1) {
+       				A[j] += Character.getNumericValue(matrix[i][j]);
+       			} else {
+       			    A[j] = 0;
+       			}
+       		}
+       		max = Math.max(largestRectInHist(A), max);
+       	}
+       	
+       	return max;
+    }
+    
+    public int largestRectInHist(int[] B) {
+    	int[] A = Arrays.copyOf(B, B.length + 1);
+    	Stack<Integer> indexStack = new Stack<>();
+    	int max = 0;
+    	for (int i = 0; i < A.length; i++) {
+    		while (!indexStack.isEmpty() && A[indexStack.peek()] >= A[i]) {
+    			int h = A[indexStack.pop()];
+    			int w = indexStack.isEmpty()? i : (i - indexStack.peek() - 1);
+    			max = Math.max(max, h * w);
+    		}
+    		indexStack.push(i);
+    	}
+    	
+    	return max;
+    }
+}
