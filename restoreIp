@@ -1,0 +1,38 @@
+public class Solution {
+    public List<String> restoreIpAddresses(String s) {
+        List<String> res = new ArrayList<>();
+        helper(3, s, "", res);
+        
+        return res;
+    }
+    // check aft length()
+    // check i vs s.length()
+    public void helper( int dots, String s, String cur, List<String> res) {
+    	if (s == null) {
+    		return;
+    	}
+    	if (dots == 0) {
+    		if (isValid(s)) {
+    			res.add(cur + s);
+    		}
+    		return;
+    	}
+    	
+    	for (int i = 1; i < 4 && i <= s.length(); i++) {
+    		String pre = s.substring(0, i);
+    		String aft = s.substring(i);
+    		if (isValid(pre) && aft.length() >= dots && aft.length() <= dots * 3) {
+    			helper(dots - 1, aft, cur + pre + ".", res);
+    		}
+    	}
+    }
+    
+    // case '0' works eg: "0.0.0.0"
+    public boolean isValid(String s) {
+    	if ((s.charAt(0) == '0' && s.length() > 1)|| Integer.parseInt(s) > 255) {
+    		return false;
+    	}
+    	
+    	return true;
+    }
+}
