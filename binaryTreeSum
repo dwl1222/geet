@@ -1,14 +1,36 @@
+
 public List<TreeNode> findPath(TreeNode root, int sum) {
-	if (!findRootPath(root, sum).isEmpty()) {
-		return findRootPath(root, sum);
-	} 
-	else if (!findPath(root.left, sum).isEmpty())
-		return findPath(root.left, sum);
-	}
-	
-	return findPath(root.right, sum);
+	return helper(root, new HashSet<Integer>(), sum);
 }
 
-public List<TreeNode> findRootPath(TreeNode root, int sum) {
+public TreeNode helper(TreeNode root, HashSet<Integer> set, int sum) {
+	if (root == null) {
+		return null;
+	}
 	
+	TreeNode left = helper(root.left, set, sum);
+	if (left != null) {
+		return left;
+	}
+	
+	TreeNode right = helper(root.right, set, sum);
+	if (right != null) {
+		return right;
+	}
+	
+	if (set.isEmpty()) {
+		set.add(root.val);
+	}
+	else {
+		for (int i : set) {
+			HashSet<Integer> temp = new HashSet<>();
+			temp.add(i + root.val);
+		}
+		set = temp;
+	}
+	if (set.contains(sum)) {
+		return root;
+	}
+	
+	return null;
 }
