@@ -1,0 +1,14 @@
+public List<TreeNode> findPath(TreeNode root, int sum) {
+	if (!findRootPath(root, sum).isEmpty()) {
+		return findRootPath(root, sum);
+	} 
+	else if (!findPath(root.left, sum).isEmpty())
+		return findPath(root.left, sum);
+	}
+	
+	return findPath(root.right, sum);
+}
+
+public List<TreeNode> findRootPath(TreeNode root, int sum) {
+	
+}
