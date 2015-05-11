@@ -8,25 +8,23 @@ public TreeNode helper(TreeNode root, HashSet<Integer> set, int sum) {
 		return null;
 	}
 	
-	TreeNode left = helper(root.left, set, sum);
+	HashSet<Integer> lset = new HashSet<>();
+	TreeNode left = helper(root.left, lset, sum);
 	if (left != null) {
 		return left;
 	}
 	
-	TreeNode right = helper(root.right, set, sum);
+	HashSet<Integer> rset = new HashSet<>();
+	TreeNode right = helper(root.right, rset, sum);
 	if (right != null) {
 		return right;
 	}
 	
-	if (set.isEmpty()) {
-		set.add(root.val);
+	for (int i : lset) {
+		set.add(i + root.val);
 	}
-	else {
-		for (int i : set) {
-			HashSet<Integer> temp = new HashSet<>();
-			temp.add(i + root.val);
-		}
-		set = temp;
+	for (int i : rset) {
+		set.add(i + root.val);
 	}
 	if (set.contains(sum)) {
 		return root;
