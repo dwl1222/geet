@@ -1,0 +1,28 @@
+public class Solution {
+    public List<List<Integer>> permuteUnique(int[] num) {
+        return permute(num, num.length);
+    }
+    
+
+	public  List<List<Integer>> permute(int[] num, int n) {
+		List<List<Integer>> res = new ArrayList<List<Integer>>();
+		if (n == 0) {
+		    res.add(new ArrayList<Integer>());
+            return res;
+		} 
+		    HashSet<List<Integer>> mySet = new HashSet<List<Integer>>();
+			List<List<Integer>> last = permute(num, n - 1);
+			for (List<Integer> i : last) {
+				for (int j = 0; j <= i.size(); j++) {  
+					List<Integer> temp = new ArrayList<Integer>(i);
+					temp.add(j, num[n - 1]);
+					mySet.add(temp);
+				}
+			}
+		
+		res = new ArrayList<List<Integer>>(mySet);
+		
+		return res;
+
+	}
+}
