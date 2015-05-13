@@ -10,19 +10,17 @@ public class Solution {
 		    res.add(new ArrayList<Integer>());
             return res;
 		} 
-		    HashSet<List<Integer>> mySet = new HashSet<List<Integer>>();
-			List<List<Integer>> last = permute(num, n - 1);
-			for (List<Integer> i : last) {
-				for (int j = 0; j <= i.size(); j++) {  
-					List<Integer> temp = new ArrayList<Integer>(i);
-					temp.add(j, num[n - 1]);
-					mySet.add(temp);
-				}
+		HashSet<List<Integer>> mySet = new HashSet<List<Integer>>();
+		List<List<Integer>> last = permute(num, n - 1);
+		for (List<Integer> i : last) {
+			for (int j = 0; j <= i.size(); j++) {  
+				List<Integer> temp = new ArrayList<Integer>(i);
+				temp.add(j, num[n - 1]);
+				mySet.add(temp);
 			}
-		
+		}
 		res = new ArrayList<List<Integer>>(mySet);
 		
 		return res;
-
 	}
 }
