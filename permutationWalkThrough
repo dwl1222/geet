@@ -1,0 +1,39 @@
+
+
+num = {1, 2, 3}  rst =[]  list = [];
+list.size() = 0 num.length = 3
+helper(rst, list, num):
+        i = 0 :   list.add(num[0])  list = [1] 
+        helper(rst, list, num);
+            list.size() = 1 
+            i = 0 list.contains(num[0]) == true;
+            i = 1 list.contains(num[1]) == false; list.add(num[1]) list =[1, 2]
+            helper(rst, list, num);
+                list.size() = 2
+                i = 0 continue;
+                i = 1 continue; 
+                i = 2 list.contains(num[2]) == false; list = [1, 2, 3]
+                helper(rst, list, num)
+                    list.size = 3;  rst.add(new ArrayList(list)); rst = [[1, 2,3]]
+                    return;
+                list.remove(last) list = [1, 2]
+                i = 3 break loop
+                return;
+            list.remove(last) list = [1]
+            i = 2 list.contains(num[2]) == false; list.add list = [1, 3]
+            helper(rst, list, num)
+                i = 0 continue
+                i = 1 list.contains == false list.add list = [1, 3, 2]
+                helper(rst, list, num) 
+                    rst = [[1, 2, 3], [1, 3, 2]]
+                    return;
+                list.remove list = [1, 3]
+                i = 2 list.contains == true continue;
+                i = 3 break loop
+                return;
+            list.remove list= [1]
+            i = 3 break loop
+            return;
+        list.remove list = []
+        i = 1
+        
