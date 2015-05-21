@@ -1,0 +1,74 @@
+class TrieNode {
+    // Initialize your data structure here.
+    public char val;
+    public boolean end;
+    public HashMap<Character, TrieNode> children;
+    public TrieNode(char c){
+    	end = false;
+        val = c;
+        children = new HashMap<>();
+    }
+    public TrieNode() {
+		new TrieNode('0');
+    }
+}
+
+public class Trie {
+    private TrieNode root;
+
+    public Trie() {
+        root = new TrieNode();
+    }
+
+    // Inserts a word into the trie.
+    public void insert(String word) {
+		insert(root, word);
+    }
+    public void insert(TrieNode root, String word) {
+        if (word == null || word.length() == 0) {
+        	root.end == true;
+        	return;
+        }
+        char c = word.charAt(0);
+        if (!root.children.containsKey(c)) {
+        	root.children.put(c, new TrieNode(c));
+        }
+        insert(root.children.get(c), word.substring(1));
+    }
+
+    // Returns if the word is in the trie.
+    public boolean search(String word) {
+    	return search(root, word);
+    }
+    
+    public boolean search(TrieNode root, String word) {
+        if (word == null || word.length() == 0) {
+        	return root.end;
+        }
+        char c = word.charAt(0);
+        if (!root.children.containsKey(c)) {
+        	return false;
+        }
+        search(root.children.get(c), word.substring(1));
+    }
+
+    // Returns if there is any word in the trie
+    // that starts with the given prefix.
+    public boolean startsWith(String prefix) {
+        if (word == null || word.length() == 0) {
+        	return true;
+        }
+        char c = word.charAt(0);
+        if (!root.children.containsKey(c)) {
+        	return false;
+        }
+        search(root.children.get(c), word.substring(1));
+        
+        return false;
+    }
+}
+
+// Your Trie object will be instantiated and called as such:
+// Trie trie = new Trie();
+// trie.insert("somestring");
+// trie.search("key");
