@@ -1,0 +1,19 @@
+public class Solution {
+    public int maxProduct(int[] nums) {
+    	if (nums == null || nums.length == 0) {
+    		return 0;
+    	}
+    	
+        int max = nums[0];
+        int maxLocal = nums[0];
+        int minLocal = nums[0];
+        for (int i = 1; i < nums.length; i++) {
+            int temp = minLocal;
+        	minLocal = Math.min(Math.min(maxLocal * nums[i], nums[i]), minLocal * nums[i]);
+        	maxLocal = Math.max(Math.max(maxLocal * nums[i], nums[i]), temp * nums[i]);
+        	max = Math.max(max, maxLocal);
+        }
+        
+        return max;
+    }
+}
