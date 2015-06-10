@@ -1,0 +1,20 @@
+public class Solution {
+    public int findMin(int[] nums) {
+        if (nums == null || nums.length == 0) {
+        	return -1;
+        }
+        
+        int l = 0;
+        int r = nums.length - 1;
+        while (l + 1 < r) {
+        	int m = l + (r - l) / 2;
+        	if (nums[m] < nums[r]) {
+        		r = m;
+        	} else {
+        		l = m;
+        	}
+        }
+        
+        return Math.min(nums[l], nums[r]);
+    }
+}
