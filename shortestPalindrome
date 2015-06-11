@@ -1,0 +1,36 @@
+public class Solution {
+    public String shortestPalindrome(String s) {
+    	StringBuilder newS = new StringBuilder();
+    	StringBuilder res = new StringBuilder();
+        for (int i = 0; i < s.length(); i++) {
+        	newS.append(s.charAt(i));
+        	if (i != s.length() - 1) {
+        		newS.append('#');
+        	}
+        }
+        String newString = newS.toString();
+        int l = 0;
+        int r = 1;
+        for (int m = (newString.length() - 1) / 2; m > 0; m--) {
+        	l = m - 1;
+        	r = m + 1;
+        	while (l >= 0) {
+        		if (newString.charAt(l) != newString.charAt(r)) {
+        			break;
+        		}
+        		l--;
+        		r++;
+        	}
+        	if (l < 0) {
+        		break;
+        	}
+        }
+        for (int i = newString.length() - 1; i >= r; i--){
+        	if (newString.charAt(i) != '#') {
+        		res.append(newString.charAt(i));
+        	}
+        }
+        
+        return res.toString() + s;
+    }
+}
