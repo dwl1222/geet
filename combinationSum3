@@ -1,0 +1,35 @@
+public class Solution {
+
+    // Mistakes forget pos
+    //          
+    public List<List<Integer>> combinationSum3(int k, int n) {
+        int[] A = new int[9]; 
+        for (int i = 0; i < A.length; i++) {
+            A[i] = i + 1;
+        }
+        List<List<Integer>> res = new ArrayList<>();
+        dfs(A, 0, k, n, new ArrayList<Integer>(), res);
+        
+        return res;
+    }
+    
+    public void dfs(int[] A, int pos, int k, int n, List<Integer> cur, List<List<Integer>> res ) {
+        if (cur.size() == k) {
+            if (n == 0) {
+                res.add(new ArrayList(cur));
+            }
+            return;
+        }
+        
+        for (int i = pos; i < A.length; i++) {
+                if (n - A[i] < 0) {
+                    continue;
+                }
+                cur.add(A[i]);
+                dfs(A, i + 1, k, n - A[i], cur, res);
+                cur.remove(cur.size() - 1);
+        }
+        
+        return;
+    }
+}
