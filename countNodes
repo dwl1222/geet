@@ -14,20 +14,23 @@ public class Solution {
         if (root == null) {
             return 0;
         }
+
         
         return countNodes(root.left) + countNodes(root.right) + 1;
     }
     
     //
     public int countNodes(TreeNode root) {
-        int h = getHeight(root);
-        int[] res = new int[1];
-        dfs(root, 0, h, res);
-        
-        return res[0];
+        if (root == null) {
+            return 0;
+        }
+        if (getLeftHeight(root) == getRightHeight(root)) {
+            return (1 << getLeftHeight(root)) - 1;
+        }
+        return countNodes(root.left) + countNodes(root.right) + 1;
     }
     
-    public int getHeight(TreeNode root) {
+    public int getLeftHeight(TreeNode root) {
         int res = 0;
         while (root != null) {
             root = root.left;
@@ -37,18 +40,14 @@ public class Solution {
         return res;
     }
     
-    public void dfs(TreeNode root, int level, int h, int[] res) {
-        if (level == h) {
-            if (root != null) {
-                res[0]++;
-            }
-            
-            return;
+    public int getRightHeight(TreeNode root) {
+        int res = 0;
+        while (root != null) {
+            root = root.right;
+            res++;
         }
         
-        dfs(root.left, level + 1, h, res);
-        dfs(root.right, level + 1, h, res);
-        
-        return;
+        return res;
     }
+
 }
