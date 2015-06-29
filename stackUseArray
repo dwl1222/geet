@@ -1,0 +1,11 @@
+public class stackUseArray {
+    private int top;
+    private int capacity;
+    private int[] nums;
+    
+    public stackUseArray(int capacity) {
+        if (capaciity <= 0 )
+        this.capacity = capacity;
+        nums = new int[this.capacity];
+    }
+}
