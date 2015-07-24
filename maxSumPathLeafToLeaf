@@ -1,0 +1,49 @@
+public class MaxSumPathLeafToLeaf {
+	class TreeNode {
+		int val;// instance variable;
+		TreeNode left, right;
+
+    TreeNode(int val) {
+		this.val = val;
+		this.left = this.right = null;
+	}
+}
+
+    private int maxSum; // global variable;
+
+    public int maxPathLeafToLeaf(TreeNode root) {
+        maxSum = Integer.MIN_VALUE;
+        findMax(root);
+        return maxSum;
+    }
+    
+    // This function return the root to leaf max value.
+    // maxSum stores the leaf to leaf max value
+    public int helper(TreeNode root, int max) {
+	        if (root == null) {
+	            return 0;
+	        }
+	        
+	        int left = helper(root.left);
+	        int right = helper(root.right);
+	        int res = Math.max(left, right) + root.val;
+	        // If any of the child is null. The maxSum is undefined.
+	        // Do not update the leaf to leaf max
+	        if (root.left != null && root.right != null) {
+	        	maxSum = Math.max(left + right + root.val, maxSum);
+	        }
+	        // If one of the child is null. Only update root to leaf sum with the other child
+	        // eg. left child is -1, right child is null. should return root.val - 1 instead of root.val + 0.
+	        if (root.left == null) {
+	        	return root.val + right;
+	        }
+	        
+	        if (root.right == null) {
+	        	return root.val + left;
+	        }
+	        
+	        return res;
+    }
+    
+    
+}
