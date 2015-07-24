@@ -1,0 +1,22 @@
+	    static int globalMax = Integer.MIN_VALUE;
+	    public static int rootToLeafMaxSum(TreeNode root) {
+	    	if (root.left == null && root.right == null) {
+	    		return globalMax;
+	    	}
+	    	helper(root, 0);
+	    	return globalMax;
+	    }
+	    
+	    public static void helper(TreeNode root, int preSum) {
+	        if (root == null) {
+	            return;
+	        }
+	        preSum += root.val;
+	        if (root.left == null && root.right == null) {
+	        	globalMax = Math.max(preSum, globalMax);
+	        }
+	        helper(root.left, preSum);
+	        helper(root.right, preSum);
+	        
+	        return ;
+	    }
