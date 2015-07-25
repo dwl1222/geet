@@ -1,5 +1,5 @@
 class Solution {
-
+    // Method 1 O(nlgn)
     int globalMax = Integer.MIN_VALUE;
 
     public int maxPathSum (TreeNode root) {
