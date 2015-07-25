@@ -36,4 +36,33 @@ class Solution {
         return max;
     }
     
+    
+    // Method 2: O(n);
+    int globalMax = Integer.MIN_VALUE;
+
+    static int globalMax = Integer.MIN_VALUE;
+
+    public int maxPathSum (TreeNode root) {
+        helper(root, 1, root.val, root.val);
+        return globalMax;
+    }
+    public void helper (TreeNode root,int level, int maxEndHere, int localMax) {
+        if (root == null) {
+            return;
+        }
+        if (level != 1) {
+            maxEndHere = Math.max(maxEndHere + root.val, root.val);
+            localMax = Math.max(maxEndHere, localMax);
+        }
+        level++;
+        if (root.left == null && root.right == null) {
+            globalMax = Math.max(globalMax, localMax);
+            return;
+        }
+        helper(root.left, level, maxEndHere, localMax);
+        helper(root.right, level, maxEndHere, localMax);
+
+        return;
+    }
+    
 }
