@@ -1,0 +1,14 @@
+    
+    // Convert a String to a bitmap
+    // To check whether two string are anagrams
+    // Not working for capital letters.
+    
+    public int strToInt(String s) {
+        int res = 0;
+        for (int i = 0; i < s.length(); i++) {
+            int j = s.charAt(i) - 'A';
+            res = res | (1 << j);
+        }
+
+        return res;
+    }
