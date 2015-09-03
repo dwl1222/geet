@@ -1,0 +1,16 @@
+public String wordTrim(String chunk, String word) {
+	String res = chunk;
+	int last = -1;
+	for (int i = 0; i < chunk.length(); i++) {
+		if (chunk.substring(i, i + word.length()) == word && last != -1 && i - last < word.length()) {
+			last = i;
+			String rest = chunk.substring(0, i) + chunk.substring(i + word.length());
+			String newRes = wordTrim(rest, word);
+			if (newRes.compareTo(res) < 0) {
+				res = newRes;
+			}
+		}
+	}
+	
+	return res;
+}
