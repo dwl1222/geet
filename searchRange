@@ -1,0 +1,52 @@
+public class Solution {
+    public int[] searchRange(int[] nums, int target) {
+        int[] res = new int[2];
+        res[0] = -1;
+        res[1] = -1;
+        
+        int low = 0;
+        int high = nums.length - 1;
+        while (low + 1 < high) {
+            int mid = low + (high - low) / 2;
+            if (nums[mid] == target && nums[mid - 1] < target) {
+                res[0] = mid;
+                break;
+            }
+            else if (nums[mid] >= target) {
+                high = mid;
+            } 
+            else {
+                low = mid;
+            }
+        }
+        
+        if (nums[low] == target) {
+            res[0] = low;
+        } else if(nums[high] == target) {
+            res[0] = high;
+        }
+        low = 0;
+        high = nums.length - 1;
+        while (low + 1 < high) {
+            int mid = low + (high - low) / 2;
+            if (nums[mid] == target && nums[mid + 1] > target) {
+                res[1] = mid;
+                break;
+            }
+            else if (nums[mid] > target) {
+                high = mid;
+            } 
+            else {
+                low = mid;
+            }
+        }
+        
+        if (nums[high] == target) {
+            res[1] = high;
+        } else if (nums[low] == target) {
+            res[1] = low;
+        }
+        
+        return res;
+    }
+}
