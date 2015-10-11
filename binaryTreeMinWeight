@@ -1,14 +1,19 @@
 
 public class Solution {
-private int minWeight = Integer.MIN_VALUE;
+  private int minWeight = Integer.MIN_VALUE;
   public int minWeight(TreeNode root) {
+    helper(root);
+    return minWeight;
+  }
+  public int helper(TreeNode root) {
     if (root == null) {
       return 0;
     }
     int left = minWeight(root.left);
     int right = minWeight(root.right);
+    int weight = left + right + root.val;
     minWeight = Math.min(left + right + root.val, minWeight);
     
-    return minWeight;
+    return weight;
   }
 }
