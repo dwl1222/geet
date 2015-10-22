@@ -1,0 +1,31 @@
+//2， reverse HTML string， 大概就是string里面有html entity 比如 &lt; 就代表小于符号, entity不能reverse
+//example html&lt;123 => 321&lt;lmth
+
+public String reverseHtml(String s) {
+  char[] arr = s.toCharArray();
+  reverse(arr, 0, arr.length - 1);
+  int mark = -1;
+  for (int i = arr.length - 1; i >=0; i --){
+    if (arr[i] == '&') {
+      mark = i;
+    }
+    if (arr[i] == ';' && mark >= 0) {
+      reverse(arr, i, mark);
+      mark = -1;
+    }
+  }
+  
+  return new String(arr);
+}
+
+private void swap(char[] arr, int i, int j) {
+  char temp = arr[i];
+  arr[i] = arr[j];
+  arr[j] = temp;
+}
+
+private void reverse(char[] arr, int i, int j) {
+    for (int l = i, r = j; l < r; l ++, r --) {
+    swap(arr, l , r);
+  }
+}
