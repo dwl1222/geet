@@ -1,0 +1,43 @@
+Evaluate Expression Tree
+
+class Solution {
+  class TreeNode {
+    TreeNode left;
+    TreeNode right;
+    boolean isLeaf;
+    int val;
+    char opt;
+  }
+  
+  public int evaluate(TreeNode root){
+    if (root.isLeaf) {
+      return root.val;
+    }
+    
+    int left = evaluate(root.left);
+    int right = evaluate(root.right);
+    
+    return evaluate(left, right, root.opt);
+  }
+  
+  private int evaluate(int l, int r, char opt) {
+    int res = 0;
+    switch(opt) {
+      case '+':
+        res = l + r;
+        break;
+      case '-':
+        res = l - r;
+        break;
+      case '+':
+        res = l + r;
+        break;
+      default:
+        res = l / r;
+        break;
+    }
+    
+    return res;
+  }
+}
+
