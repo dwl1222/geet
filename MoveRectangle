@@ -1,0 +1,19 @@
+class Point(){
+  int x;
+  int y;
+  Point(int x, int y){
+    this.x = x;
+    this.y = y;
+  }
+}
+public void move(int[][] matrix, Point L1, Point R1, Point, L2, Point R2){
+  
+}
+
+public void moveNoOverlap(int[][] matrix, Point L1, Point R1, Point, L2, Point R2) {
+  for (int i = L1.x; i <= R1.x; i ++) {
+    for (int j = L1.y; j <= R1.y; j ++) {
+      matrix[i + L2.x - L1.x][j + L2.y - L1.y] = matrix[i][j];
+    }
+  }
+}
