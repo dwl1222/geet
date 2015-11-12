@@ -1,0 +1,72 @@
+class Node {
+  int val;
+  List<Node> neighbors;
+  Node(int val) {
+    this.val = val;
+    neighbors = new ArrayList<Node>();
+  }
+}
+class Edge {
+        HashSet<Node> nodes = new HashSet<Node>(2);
+        Edge(Node n1, Node n2) {
+            nodes.add(n1);
+            nodes.add(n2);
+        }
+        public int hashCode(){
+            return nodes.hashCode();
+        }
+
+        public boolean equals(Object obj){
+            if (this == obj)
+                return true;
+            if (obj == null)
+                return false;
+            if (getClass() != obj.getClass())
+                return false;
+            Edge other = (Edge) obj;
+            return other.hashCode() == this.hashCode();
+        }
+}
+public int maxPathSum(ArrayList<Node> nodes) {
+  int res = Integer.MIN_VALUE;
+  for (Node node : nodes) {
+    res = Math.max(maxPathSum(node), res);
+  }
+  
+  return res;
+}
+
+private int maxPathSum(Node root) {
+  Set<Node> nodeMap = new HashSet<>();
+  Set<Edge> edgeMap = new HashSet<>();
+  int sum = root.val;
+  int[] max = new int[1];
+  max[0] = sum;
+  nodeMap.add(root);
+  dfs(root, nodeMap, edgeMap, sum, max);
+  
+  return max;
+}
+
+private void dfs(Node root, HashSet<Node> nodeMap, HashSet<Edge> edgeMap, int sum, int[] max) {
+  for (Node node : root.neighbors) {
+    Edge curEdge= new Edge(root, node);
+    if (!edgeMap.contains(curEdge)) {
+      edgeMap.add(curEdge);
+      boolean flag = false;
+      if (!nodeMap.contains(node)) {
+        sum += node.val;
+        nodeMap.add(node);
+        max[0] = Math.max(max[0], sum);
+        flag = true;
+      }
+      dfs(node, nodeMap, edgeMap, sum, max);
+      edgeMap.remove(curEdge);
+      if (flag) {
+        nodeMap.remove(node);
+      }
+    }
+  }
+  
+  return;
+}
