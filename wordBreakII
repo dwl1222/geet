@@ -25,4 +25,46 @@ public class Solution {
         
         return res;
     }
+    
+    private static char shift(char c, int k) {
+        char res = (char) (c - k);
+        if (c - k < 'a') {
+            res = (char) (res + 26);
+        }
+
+        return res;
+    }
+
+    private static String shift(String s, int k) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < s.length(); i ++) {
+            sb.append(shift(s.charAt(i), k));
+        }
+
+        return sb.toString();
+    }
+    public List<String> wordBreak(String s, Set<String> wordDict) {
+        return DFS(s, wordDict, new HashMap<String, ArrayList<String>>());
+    }       
+
+    // DFS function returns an array including all substrings derived from s.
+    ArrayList<String> DFS (String s, Set<String> wordDict, HashMap<String, ArrayList<String>>map) {
+        if (map.containsKey(s)) {
+            return map.get(s);
+        }       
+        ArrayList<String>res = new ArrayList<String>();     
+        if (s.length() == 0) {
+            res.add("");
+            return res;
+        }               
+        for (String word : wordDict) {
+            if (s.startsWith(word)) {
+                ArrayList<String>sublist = DFS(s.substring(word.length()), wordDict, map);
+                for (String sub : sublist) 
+                    res.add(word + (sub.isEmpty() ? "" : " ") + sub);               
+            }
+        }       
+        map.put(s, res);
+        return res;
+    } 
 }
