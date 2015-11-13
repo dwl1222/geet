@@ -6,14 +6,38 @@ class Point(){
     this.y = y;
   }
 }
-public void move(int[][] matrix, Point L1, Point R1, Point, L2, Point R2){
-  
+public void move(int[][] matrix, Point L1, Point R1, Point L2, Point R2){
+  int dx = L2.x - L1.x;
+  int dy = L2.y - L1.y;
+
+  if (R1.y > L2.y || R2.y > L1.y || R1.x < L2.x || R2.x < L1.x) {
+    Point[] overLap = overlap(L1, R1, L2, R2);
+    moveNoOverlap(matrix, overLap[0], overLap[1], dx, dy);
+    for (int i = L1.x; i <= R1.x; i ++) {
+      for (int j = L1.y; j <= R1.y; j ++) {
+        if (i >= overLap[0].x && i <= overlap[1].x && i >= overLap[1].y && i <= overLap[1].x) {
+          continue;
+        }
+        matrix[i + dx][j + dy] = matrix[i][j];
+      }
+    }
+  } else {
+    moveNoOverlap(matrix, L1, R1, dx, dy);
+  }
 }
 
-public void moveNoOverlap(int[][] matrix, Point L1, Point R1, Point, L2, Point R2) {
+public void moveNoOverlap(int[][] matrix, Point L1, Point R1, int dx, int dy) {
   for (int i = L1.x; i <= R1.x; i ++) {
     for (int j = L1.y; j <= R1.y; j ++) {
-      matrix[i + L2.x - L1.x][j + L2.y - L1.y] = matrix[i][j];
+      matrix[i + dx][j + dy] = matrix[i][j];
     }
   }
+}
+
+// calculate the overlap rectangle
+public Point[] overLap(Point L1, Point R1, Point L2, Point R2) {
+  Point[] res = new Point[2];
+  res[0] = new Point(Math.max(L1.x, L2.x), Math.min(L1.y, L2.y));
+  res[1] = new Point(Math.min(R1.x, R2.x), Math.max(R1.y, R2.y));
+  return res;
 }
