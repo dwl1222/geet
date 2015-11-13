@@ -41,3 +41,19 @@ public Point[] overLap(Point L1, Point R1, Point L2, Point R2) {
   res[1] = new Point(Math.min(R1.x, R2.x), Math.max(R1.y, R2.y));
   return res;
 }
+
+
+
+
+public void move(int[][] matrix, Point L1, Point R1, Point L2){
+  Point start = new Point();
+  start.y = L2.y >= L1.y ? R1.y : L1.y;
+  start.x = L2.x >= L1.x ? R1.x : L1.x;
+  int stepx = L2.y >= L1.y ? -1 : 1;
+  int stepy = L2.x >= L1.x ? -1 : 1;
+  for (int i = 0; i <= R1.x - L1.x; i ++){
+    for (int j = 0; j <= R1.y - L1.y; j ++){
+      matrix[start.x + stepx * i + L2.x - L1.x][start.y + stepy * j + L2.y - L1.y] = matrix[start.x + stepx * i][start.y + stepy * j]
+    }
+  }
+}
