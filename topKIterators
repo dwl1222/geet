@@ -1,0 +1,68 @@
+   static class itWrapper{
+        int val;
+        Iterator<Integer> it;
+        itWrapper(int v, Iterator<Integer> i) {
+            val = v;
+            it = i;
+        }
+    }
+
+    static class itComparator implements Comparator<itWrapper>{
+        @Override
+        public int compare(itWrapper o1, itWrapper o2) {
+            return o1.val - o2.val;
+        }
+    }
+
+    static class Node {
+        int val;
+        int freq;
+        Node (int v, int f) {
+            val = v;
+            freq = f;
+        }
+    }
+
+    static class nodeComparator implements Comparator<Node> {
+        @Override
+        public int compare(Node o1, Node o2) {
+            if (o1.freq == o2.freq) {
+                return o1.val - o2.val;
+            }
+
+            return o2.freq - o1.freq;
+        }
+    }
+
+    public List<Integer> merge(List<Iterator<Integer>> its, int k){
+        List<Integer> res = new ArrayList<Integer>();
+        PriorityQueue<itWrapper> pq = new PriorityQueue<itWrapper>(k, new itComparator());
+        for (Iterator<Integer> i : its) {
+            if (i.hasNext()) {
+                pq.offer(new itWrapper(i.next(), i));
+            }
+        }
+        PriorityQueue<Node> pqNode = new PriorityQueue<Node>(k, new nodeComparator());
+        int prev = pq.peek().val;
+        int count = 0;
+        while (!pq.isEmpty()) {
+            itWrapper min = pq.poll();
+            if (min.it.hasNext()) {
+                pq.offer(new itWrapper(min.it.next(), min.it));
+            }
+            if (min.val != prev && count != 0) {
+                pqNode.offer(new Node(prev, count));
+                count = 1;
+            } else {
+                count ++;
+            }
+            prev = min.val;
+        }
+        pqNode.offer(new Node(prev, count));
+        
+        while (!pqNode.isEmpty()){
+            res.add(pqNode.poll().val);
+        }
+        
+        return res;
+    }
