@@ -1,0 +1,48 @@
+class Node{
+    int val;
+    List<Node> parents;
+    Node(int v) {
+        val = v;
+        parents = new ArrayList<Node>();
+    }
+}
+
+public Node lca(Node node1, Node node2) {
+    Node res = null;
+    HashMap<Node, Integer> levelMap1 = new HashMap<>();
+    HashMap<Node, Integer> levelMap2 = new HashMap<>();
+    bfs(node1, levelMap1);
+    bfs(node2, levelMap2);
+    int min = Integer.MAX_VALUE;
+    for (Node n : levelMap1.keySet()) {
+        if (levelMap2.containsKey(n) && levelMap1.get(n) + levelMap2.get(n) < min) {
+            min = levelMap1.get(n) + levelMap2.get(n);
+            res = n;
+        }
+    }
+    
+    return res;
+}
+
+private void bfs(Node node, HashMap<Node, Integer> levelMap) {
+    LinkedList<Node> curLevel = new LinkedList<>();
+    curLevel.offer(node);
+    int level = 0;
+    levelMap.put(node, level ++);
+    while (!curLevel.isEmpty()) {
+        LinkedList<Node> nextLevel = new LinkedList<>();
+        while (!curLevel.isEmpty()) {
+            Node cur = queue.poll();
+            for (Node p : cur.parents) {
+                if (!levelMap.containsKey(p)) {
+                    level.put(p, level);
+                    nextLevel.offer(p);
+                }
+            }
+        }
+        curLevel = nextLevel;
+        level ++;
+    }
+    
+    return;
+}
