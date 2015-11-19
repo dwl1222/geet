@@ -46,3 +46,81 @@ private void bfs(Node node, HashMap<Node, Integer> levelMap) {
     
     return;
 }
+
+
+public class valComparator implements Comparator<Node> {
+    public int compare(Node o1, Node o2) {
+        return o1.val - o2.val;
+    }
+}
+class fNode {
+    int val;
+    int freq;
+    fNode(int v, int f) {
+        val = v;
+        freq = f;
+    }
+}
+public class freqComparator implements Comparator<fNode> {
+    public int compare(fNode o1, fNode o2) {
+        return o1.freq - o2.freq;
+    }
+}
+
+public List<Integer> merge(List<Node> nodes, int k) {
+    List<fNode> freqNodes = new ArrayList<>();
+    PriorityQueue<Node> pq = new PriorityQueue<>(k, new valComparator());
+    for (Node n : nodes) {
+        pq.offer(n);
+    }
+    int save = pq.peek().val;
+    int count = 0;
+    while (!pq.isEmpty()) {
+        Node min = pq.poll();
+        if (min.val != save ) {
+            freqNodes.add(new fNode(save, count));
+            count = 1;
+        } else {
+            count ++;
+        }
+        save = min.val;
+        while (min != null && min.val == save) {
+            min = min.next;
+        }
+        if (min != null) {
+            pq.offer(min);
+        }
+    }
+    freqNodes.add(save, count);
+    
+    
+}
+
+
+public List<Integer> merge(List<Node> nodes, int k) {
+    HashMap<Integer, Integer> map = new HashMap<>();
+    for (Node head : nodes) {
+        int prev = Integer.MIN_VALUE;
+        while (head != null) {
+            if (head.val != prev) {
+                if (map.containsKey(head.val)) {
+                    map.put(head.val, map.get(head.val) + 1);
+                } else {
+                    map.put(head.val, 1);
+                }
+            }
+            prev = head.val;
+            head = head.next;
+        }
+    }
+    List<freqNode> res = new ArrayList<>();
+    for (int i : map.keySet()) {
+        if (map.get(i) >= k) {
+            res.add(new fNode(i, map.get(i)));
+        }
+    }
+    
+    Arrays.sort(res, new freqComparator());
+    
+    return res;
+}
