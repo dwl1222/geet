@@ -1,0 +1,49 @@
+import java.util.*;
+import java.io.*;
+
+private boolean check(String s){
+  String[] cur = s.split("[\\s+:]");
+  
+  return (cur[0].equals(if) || cur[0].equals("else")  || cur[0].equals("for") || cur[0].equals("while"));
+}
+
+private int leadSpace(String s) {
+  int i = 0;
+  for (; i < s.length(); i ++) {
+    if (s.charAt(i) != ' ') {
+      break;
+    }
+  }
+  
+  return i
+}
+
+public boolean checkIndentation(String fileName) {
+  Scanner sc = new Scanner(new File(filename));
+  Stack<Integer> myStack = new Stack<>();
+  boolean isControl = false;
+  if (sc.hasNextLine() && leadSpace(sc.nextLine()) > 0) {
+    return false;
+  }
+  myStack.push(leadSpace(cur));
+  isControl = check(cur);
+  while (sc.hasNextLine()) {
+    String cur = sc.nextLine();
+    if (isControl) {
+      if (leadSpace(cur) != myStack.peek() + 4) {
+        return false;
+      }
+    } else {
+      while (!myStack.isEmpty() && leadSpace(cur) != myStack.peek()) {
+        myStack.pop();
+      }
+      if (myStack.isEmpty()) {
+        return false;
+      }
+    }
+    myStack.push(leadSpace(cur));
+    isControl = check(cur);
+  }
+  
+  return true;
+}
