@@ -1,0 +1,45 @@
+class SuperNode{
+  Node head;
+  int maxSize;
+  int size;
+  
+  public insert(int x) {
+    
+    
+    
+  }
+  
+  public void delete(int x) {
+    Node pre = new Node(0);
+    pre.next = head;
+    Node cur = head;
+    while (cur != null) {
+      pre.next = delete(cur, x);
+      pre = pre.next;
+      cur = cur.next;
+    }
+  }
+  
+  private Node delete(Node root, int x) {
+    Node newHead = new Node(0);
+    newHead.next = root;
+    Node pre = newHead;
+    while (pre.next != null && x != pre.next.val) {
+      pre = pre.next;
+    }
+    if ((pre.next != null && pre.next.val == x) {
+      pre.next = pre.next.next;
+    }
+    return newHead.next;
+  }
+  
+}
+
+struct Node {
+  int val;
+  Node next;
+  Node(int x) {
+    val = x;
+  }
+}
+
